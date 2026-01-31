@@ -1,233 +1,457 @@
-/* DevConf 2026 - Basic Stylesheet */
-/* Focusing on CSS Fundamentals: Box Model, Typography, and Standard Layouts */
-
-/* 
-  Colors Used:
-  Background: #f4f7f6 (Light Grey)
-  Text: #333333 (Dark Grey)
-  Headings: #2c3e50 (Dark Blue)
-  Accent: #f97316 (Orange)
-  Footer: #2c3e50 (Dark Blue)
-*/
-
-/* Link to Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500&display=swap");
-
 /* =========================================
-   Global Resets and Basic Styles
+   DevConf 2026 - Phase 2 Stylesheet
+   Focus: Advanced Layouts (Flexbox & Grid)
    ========================================= */
 
-/* Apply Box Sizing to every element for predictable sizes */
+/* 
+   =========================================
+   1. CSS Variables (Theming System)
+   =========================================
+*/
+:root {
+  /* Colors */
+  --color-primary: #2c3e50; /* Dark Blue */
+  --color-accent: #f97316; /* Orange */
+  --color-accent-hover: #e8630a; /* Darker Orange */
+  --color-bg-body: #f4f7f6; /* Light Grey Background */
+  --color-bg-surface: #ffffff; /* White Surface */
+  --color-text-main: #333333; /* Dark Grey Text */
+  --color-text-light: #666666; /* Medium Grey Text */
+  --color-text-muted: #999999; /* Light Grey Text */
+  --color-border: #eaeaea; /* Border Color */
+
+  /* Fonts */
+  --font-family-body: "Roboto", sans-serif;
+  --font-family-heading: "Inter", sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 20px;
+  --spacing-lg: 40px;
+  --spacing-xl: 60px;
+  --spacing-xxl: 100px;
+
+  /* Layout */
+  --max-width-container: 1200px;
+  --header-height: 80px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* =========================================
+   2. Global Resets & Basics
+   ========================================= */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: "Roboto", sans-serif; /* Body font */
-  line-height: 1.6;
-  color: #333333;
-  background-color: #f4f7f6;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Make images responsive by default */
+body {
+  font-family: var(--font-family-body);
+  line-height: 1.6;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-body);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 img {
   max-width: 100%;
   display: block;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
 }
 
 /* =========================================
-   Typography
+   3. Typography
    ========================================= */
-
-/* Headings use the Inter font */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "Inter", sans-serif;
-  color: #1a1a1a;
-  margin-bottom: 20px;
+  font-family: var(--font-family-heading);
+  color: var(--color-primary);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 p {
-  margin-bottom: 15px;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
+  margin-bottom: var(--spacing-md);
 }
 
 /* =========================================
-   Navigation Bar (Using Floats)
+   4. Navigation (Flexbox & Sticky)
    ========================================= */
 .navbar {
-  background-color: #ffffff;
-  padding: 20px 40px;
-  border-bottom: 2px solid #eaeaea;
-  overflow: hidden; /* Clears floats */
+  display: flex; /* Flexbox Requirement */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+  height: var(--header-height);
+  background-color: var(--color-bg-surface);
+  box-shadow: var(--shadow-sm);
+
+  /* Sticky Positioning Requirement */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
 }
 
 .logo {
-  font-size: 1.5rem; /* 24px */
-  font-weight: 700;
-  color: #2c3e50;
-  display: inline-block;
-  float: left; /* Float logo to the left */
+  font-family: var(--font-family-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
 }
 
 .logo span {
-  color: #f97316; /* Orange accent */
+  color: var(--color-accent);
 }
 
 .nav-links {
-  list-style: none; /* Remove bullet points */
-  display: inline-block;
-  float: right; /* Float links to the right */
-  margin-top: 5px;
-}
-
-.nav-links li {
-  display: inline; /* Display list items in a row */
-  margin-left: 25px;
+  display: flex; /* Flexbox for links */
+  gap: var(--spacing-lg); /* Consistent spacing */
 }
 
 .nav-links a {
-  color: #666666;
   font-weight: 500;
-  font-size: 16px;
+  color: var(--color-text-light);
+  position: relative;
+  font-size: 1rem;
 }
 
-/* Change color on hover */
 .nav-links a:hover,
 .nav-links a.active {
-  color: #f97316;
+  color: var(--color-accent);
+}
+
+/* Underline effect for nav links */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--color-accent);
+  transition: width var(--transition-fast);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
 }
 
 /* =========================================
-   Hero Section
+   5. Hero Section (Gradients & Backgrounds)
    ========================================= */
 .hero-section {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+
+  /* Requirement: linear-gradient */
+  background:
+    linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(44, 62, 80, 0.8)),
+    url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+  background-size: cover; /* Requirement */
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--color-bg-surface);
+  min-height: 500px;
 }
 
 .hero-section h1 {
-  color: #ffffff;
-  font-size: 3rem; /* 48px */
-  font-weight: 700;
-  margin-bottom: 10px;
+  color: var(--color-bg-surface);
+  max-width: 800px;
+  margin-bottom: var(--spacing-md);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
-  font-size: 1.25rem; /* 20px */
-  margin-bottom: 40px;
-  color: #cccccc;
+  font-size: 1.25rem;
+  color: #e0e0e0;
+  margin-bottom: var(--spacing-lg);
+  max-width: 600px;
 }
 
-/* Button Styling */
+/* Button Component */
 .primary-btn {
-  background-color: #f97316;
-  color: #ffffff;
-  padding: 15px 35px;
-  font-weight: 600;
-  border-radius: 5px;
   display: inline-block;
+  background-color: var(--color-accent);
+  color: var(--color-bg-surface);
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  border: 2px solid transparent;
 }
 
 .primary-btn:hover {
-  background-color: #e8630a; /* Darker orange */
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* =========================================
-   Page Layout & Containers
+   6. Layout Containers
    ========================================= */
-
-/* Center the main content */
-.main-content,
 .page-container {
-  max-width: 1000px;
-  margin: 0 auto; /* Auto margin centers the block */
-  padding: 60px 20px;
-  min-height: 400px;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-md);
+  width: 100%;
+  flex: 1; /* Pushes footer down */
 }
 
 .page-title {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 40px;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  padding-bottom: var(--spacing-md);
+}
+
+.page-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-accent);
+  margin: var(--spacing-sm) auto 0;
+  border-radius: 2px;
 }
 
 /* =========================================
-   Content Boxes and Cards
+   7. Speaker Grid (CSS Grid System)
    ========================================= */
-.info-card,
-.content-box,
-.speaker-profile {
-  background-color: #ffffff;
-  padding: 40px;
-  margin-bottom: 40px;
-  border: 1px solid #dddddd;
-  border-radius: 8px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+.speaker-grid {
+  /* Requirement: display: grid */
+  display: grid;
+
+  /* Requirement: Responsive columns */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  /* Requirement: Gap property */
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
 }
 
-/* Speaker Profile Specifics */
+/* Speaker Card Styling */
 .speaker-profile {
-  border-left: 5px solid #f97316; /* Left accent border */
+  background-color: var(--color-bg-surface);
+  border-radius: 12px;
+  padding: var(--spacing-lg);
+
+  /* Requirement: Box Shadow */
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+  border: 1px solid var(--color-border);
+  border-left: 5px solid var(--color-accent);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Hover Effect for Depth */
+.speaker-profile:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
 .speaker-profile h4 {
-  font-size: 1.4rem;
-  margin-bottom: 5px;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-primary);
 }
 
-.role {
-  color: #f97316;
-  font-weight: 500;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-}
-
-.bio {
-  color: #555555;
-}
-
-/* Schedule and Sponsors helpers */
-.schedule-day {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
+.speaker-profile .role {
+  color: var(--color-accent);
   font-weight: 600;
-  color: #2c3e50;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--spacing-md);
 }
 
-hr {
-  border: 0;
-  border-top: 1px solid #eaeaea;
-  margin: 30px 0;
+.speaker-profile .bio {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 
 /* =========================================
-   Footer
+   8. Schedule Layout
+   ========================================= */
+.content-box {
+  background-color: var(--color-bg-surface);
+  border-radius: 12px;
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.schedule-day {
+  margin-bottom: var(--spacing-lg);
+}
+
+.schedule-day h3 {
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+.schedule-item {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-time {
+  min-width: 120px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.schedule-details h4 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.schedule-details p {
+  margin-bottom: 0;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   9. Footer
    ========================================= */
 .site-footer {
+  background-color: var(--color-primary);
+  color: var(--color-bg-surface);
   text-align: center;
-  padding: 40px;
-  background-color: #2c3e50;
-  color: #ffffff;
-  clear: both; /* Clear any floats */
+  padding: var(--spacing-xl) var(--spacing-md);
+  margin-top: auto;
 }
 
 .site-footer p {
-  margin-bottom: 0;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   10. Utility / Misc
+   ========================================= */
+.main-content {
+  padding: var(--spacing-xl) var(--spacing-md);
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+}
+
+/* Info Card (Home Page) */
+.info-card {
+  background: var(--color-bg-surface);
+  padding: var(--spacing-xl);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-card h2 {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.info-card p {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: var(--spacing-md);
+  }
+
+  .nav-links {
+    margin-top: var(--spacing-md);
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .schedule-item {
+    flex-direction: column;
+  }
+
+  .schedule-time {
+    margin-bottom: 5px;
+  }
 }
