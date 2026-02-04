@@ -4,7 +4,7 @@ A high-performance, responsive, and aesthetically pleasing technical portfolio d
 
 ## Live Demo
 
-[Insert Live URL Here]
+https://vrajeshchary.github.io/vrajeshchary-portfolio/
 
 ## Features
 
